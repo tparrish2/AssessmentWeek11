@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert New Course</title>
+<script type="text/javascript">
+
+	function validate() {
+		
+		// regex expression to check if input only contains letters and spaces
+		var re = /^[A-Za-z\s]*$/;
+		// expression to check if input only contains numbers
+		var numbers = /^[0-9]+$/;
+		
+		if (courseForm.courseName.value == "") {
+			alert("Please provide a course name!");
+			courseForm.courseName.focus();
+			return false;
+		}
+		
+		if (!re.test(courseForm.courseName.value)) {
+			alert("Course name input contains invalid characters!");
+			courseForm.courseName.focus();
+			return false;
+		}
+		
+		if (courseForm.city.value == "") {
+			alert("Please provide a city!");
+			courseForm.city.focus();
+			return false;
+		}
+		
+		if (!re.test(courseForm.city.value)) {
+			alert("City input contains invalid characters!");
+			courseForm.city.focus();
+			return false;
+		}
+		
+		if (courseForm.publicPrivate.value == "") {
+			alert("Please enter if course is public or private!");
+			courseForm.publicPrivate.focus();
+			return false;
+		}
+		
+		if (courseForm.publicPrivate.value.toLowerCase() !== "public" && courseForm.publicPrivate.value.toLowerCase() !== "private") {
+			alert("Input for public or private is invalid!");
+			courseForm.publicPrivate.focus();
+			return false;
+		}
+		
+		if (courseForm.holeAmount.value == "") {
+			alert("Please provide # of holes!");
+			courseForm.holeAmount.focus();
+			return false;
+		}
+		
+		if (!numbers.test(courseForm.holeAmount.value)) {
+			alert("# of holes should only contain a numerical value!")
+			courseForm.holeAmount.focus();
+			return false;
+		}
+	}
+</script>
+</head>
+  <body>
+  	<h2>Enter a Golf Course</h2>
+    <form name="courseForm" th:object="${newCourse}" th:action="@{/update/{id}(id=${newCourse.id})}" method='POST' onsubmit="return(validate());">
+      <label>Course Name:</label><br>
+      <input name="courseName" size="20" th:field="*{courseName}"><br>
+      <label>City:</label><br>
+      <input name="city" size="12" th:field="*{city}"><br>
+      <label>Public or Private:</label><br>
+      <input name="publicPrivate" size="12" th:field="*{publicPrivate}"><br>
+      <label># of Holes:</label><br>
+      <input name="holeAmount" size="1" th:field="*{holeAmount}"><br><br>
+      <input name="submit" type="submit" value="submit" />
+    </form>
+    <br>
+    <a href="viewAll">View all Courses</a>
+  </body>
+</html>

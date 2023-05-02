@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<style>
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+</style>
+<title>View All Courses</title>
+</head>
+  <body>
+    <h2>List of Golf Courses</h2>
+    <form>
+      <table>
+      	<tr>
+      	  <th>Id</th>
+      	  <th>Course Name</th>
+      	  <th>City</th>
+      	  <th>Public or Private</th>
+      	  <th># of Holes</th>
+      	</tr>
+        <tr th:each="currentCourse : ${course}" >
+		  <td th:text="${currentCourse.id}" />
+ 		  <td th:text="${currentCourse.courseName}" />
+ 		  <td th:text="${currentCourse.city}" />
+ 		  <td th:text="${currentCourse.publicPrivate}" />
+ 		  <td th:text="${currentCourse.holeAmount}" />
+ 		  <td><a th:href="@{/edit/{id}(id=${currentCourse.id})}">Edit</a></td>
+ 		  <td><a th:href="@{/delete/{id}(id=${currentCourse.id})}">Delete</a></td>
+		</tr>
+	  </table>
+    </form>
+    <a href="../inputCourse">Add a new course</a>
+  </body>
+</html>
